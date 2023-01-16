@@ -9,7 +9,7 @@
     },
     methods: {
       addTask(){
-        if (this.newTask){
+          if (this.newTask){
           this.store.ADD_TASK(this.newTask)
           this.newTask = ''
         }
@@ -17,8 +17,9 @@
     },
     inject: ["store"],
     mounted() {
-      if (sessionStorage.getItem("store"))
-        this.store.INIT_STORE()
+      if (localStorage.getItem("tasks")) {
+          this.store.INIT_STORE()
+        }
     },
   }
 </script>
@@ -47,10 +48,12 @@
     </div>
   </main>
 </template>
-
 <style>
 
     /* Large devices (laptops/desktops, 992px and up) */
-
-   
+  @media only screen and (min-width: 992px) {
+    .grid {
+      grid-template-columns: auto auto auto;
+    }
+  } 
 </style>
