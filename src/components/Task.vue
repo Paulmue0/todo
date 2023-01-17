@@ -1,11 +1,11 @@
 <template>
   <article>
       <div :class="`task ${task.done ? 'is-complete' : ''}`">
-        <div class="">
-            <div class="content">
+        <div  class="">
+            <div @click="toggleTask" class="content">
                 <h3>{{ task.content }}</h3>
             </div>
-            <div class="buttons">
+            <div class="buttons grid">
                 <button class="outline undo-button" @click="toggleTask">{{ task.done ? 'Undo' : 'Done'}}</button>
                 <button class="remove-button" @click="removeTask">remove</button>
         </div>
