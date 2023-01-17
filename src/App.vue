@@ -6,7 +6,8 @@
       return {
         newTask: '',
         scheme: 'light',
-        darkModePreference: false
+        darkModePreference: false,
+        simplified: false
       }
     },
     methods: {
@@ -21,6 +22,9 @@
         "dark" == this.scheme ? this.scheme = "light" : this.scheme = "dark"
         const element = document.getElementById("html");
         element.setAttribute("data-theme", this.scheme)
+      },
+      switchComplexity(){
+        this.simplified = !this.simplified
       }
     },
     inject: ["store"],
@@ -38,17 +42,23 @@
   }
 </script>
 
-<template >
+<template>
   <header><p></p></header>
-  <main class="container">
+  <main class="container ease-in">
     <section>
         <div class="input">
-          <div>
+          <div class="grid">
             <h1>Todo's</h1>
-            <label for="switch">
-              <input type="checkbox" id="switch" name="switch" role="switch" v-model="darkModePreference" @click="switchTheme">
-              Dark mode
-            </label>
+            <fieldset>
+              <label for="switch">
+                <input type="checkbox" id="switch" name="switch" role="switch" v-model="darkModePreference" @click="switchTheme">
+                Dark mode
+              </label>
+              <label for="switch">
+                <input type="checkbox" id="switch" name="switch" role="switch" v-model="simplified" @click="switchComplexity">
+                Simplify
+              </label>
+            </fieldset>
           </div>
           <div class="create-new-task">
             <input type="text" @keypress.enter="addTask" v-model="newTask" placeholder="new task">
@@ -60,7 +70,8 @@
       <Task
       v-for="(task, i) in store.state.tasks"
       :key="i"
-      :task="task"/>
+      :task="task"
+      :simplified="simplified"/>
     </div>
   </main>
 </template>
@@ -79,5 +90,20 @@
   }
   .custom-grid > * {
     min-width: 0;
+  }
+
+  .ease-in {
+    animation: transitionIn 0.75s;
+  }
+
+  @keyframes transitionIn {
+    from {
+      opacity: 0;
+      transform: rotateX(-10deg);
+    }
+    to {
+      opacity: 1;
+      transform: rotateX(0);
+    }
   }
 </style>

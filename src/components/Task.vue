@@ -1,14 +1,14 @@
 <template>
-  <article>
+  <article v-on="simplified ? { click: () => toggleTask() } : {}">
       <div :class="`task ${task.done ? 'is-complete' : ''}`">
-        <div  class="">
-            <div @click="toggleTask" class="content">
-                <h3>{{ task.content }}</h3>
+        <div>
+            <div v-on="!simplified ? { click: () => toggleTask() } : {}" class="content">
+                <h1 :class="`${simplified ? 'simplified' : ''}`">{{ task.content }}</h1>
             </div>
-            <div class="buttons grid">
+            <div v-if="!simplified" class="buttons grid">
                 <button class="outline undo-button" @click="toggleTask">{{ task.done ? 'Undo' : 'Done'}}</button>
                 <button class="remove-button" @click="removeTask">remove</button>
-        </div>
+            </div>
         </div>
       </div>
   </article>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    props: ['task'],
+    props: ['task', 'simplified'],
     inject: ["store"],
     methods: {
         toggleTask(){
@@ -43,5 +43,10 @@ export default {
     }
     .undo-button {
         width: 100%;
+    }
+    .simplified{
+        margin-bottom: 0;
+        text-align: center;
+        
     }
 </style>
