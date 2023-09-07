@@ -1,6 +1,6 @@
 # todo
 
-This template should help get you started developing with Vue 3 in Vite.
+Try this project [here](https://todo.paulpelikan.de) :)
 
 ## Recommended IDE Setup
 
